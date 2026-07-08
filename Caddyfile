@@ -1,19 +1,10 @@
 api.seedpay.app {
     encode gzip zstd
 
-    @options method OPTIONS
-    handle @options {
-        header Access-Control-Allow-Origin *
-        header Access-Control-Allow-Methods "GET, OPTIONS"
-        header Access-Control-Allow-Headers *
-        respond "" 204
+    @allowed method GET OPTIONS
+    handle @allowed {
+        reverse_proxy postgrest:3000
     }
 
-    header {
-        Access-Control-Allow-Origin *
-        Access-Control-Allow-Methods "GET, OPTIONS"
-        Access-Control-Allow-Headers *
-    }
-
-    reverse_proxy postgrest:3000
+    respond "Method Not Allowed" 405
 }
