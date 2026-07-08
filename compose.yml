@@ -1,0 +1,35 @@
+name: seedpay
+services:
+  migrate:
+    build: .
+    image: seedpay-indexer
+    container_name: migrate
+    restart: no
+    env_file:
+      - .env
+    command: bun run migrate
+
+  indexer:
+    image: seedpay-indexer
+    container_name: indexer
+    restart: unless-stopped
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    env_file:
+      - .env
+    command: bun run start
+
+  postgrest:
+    container_name: postgrest
+    image: postgrest/postgrest:v14.14
+    restart: unless-stopped
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    environment:
+      PGRST_DB_URI: ${DATABASE_URL}
+      PGRST_DB_SCHEMAS: public
+      PGRST_DB_ANON_ROLE: web_anon
+      PGRST_SERVER_PORT: 3000
+      PGRST_OPENAPI_MODE: disabled

@@ -1,0 +1,30 @@
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:18
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: defaultdb
+    volumes:
+      - postgres_data:/var/lib/postgresql
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres -d seed']
+      interval: 2s
+      timeout: 5s
+      retries: 30
+    ports:
+      - '5432:5432'
+
+  migrate:
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  postgrest:
+    ports:
+      - '3000:3000'
+
+volumes:
+  postgres_data:
