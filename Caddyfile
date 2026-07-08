@@ -5,13 +5,14 @@ api.seedpay.app {
     handle @options {
         header Access-Control-Allow-Origin *
         header Access-Control-Allow-Methods "GET, OPTIONS"
-        header Access-Control-Allow-Headers "Content-Type"
+        header Access-Control-Allow-Headers *
         respond "" 204
     }
 
     header {
         Access-Control-Allow-Origin *
-        Access-Control-Allow-Methods "GET, OPTIONS"
+        header Access-Control-Allow-Methods "GET, OPTIONS"
+        header Access-Control-Allow-Headers *
     }
 
     reverse_proxy postgrest:3000
