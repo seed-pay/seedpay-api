@@ -2,16 +2,18 @@ name: seedpay
 services:
   migrate:
     build: .
-    image: seedpay-indexer
+    image: api
+    pull_policy: never
     container_name: migrate
     restart: no
     env_file:
       - .env
     command: bun run migrate
 
-  indexer:
-    image: seedpay-indexer
-    container_name: indexer
+  api:
+    image: api
+    container_name: api
+    pull_policy: never
     restart: unless-stopped
     depends_on:
       migrate:

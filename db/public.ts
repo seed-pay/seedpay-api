@@ -1,10 +1,10 @@
 import {
-  bigint,
   index,
   integer,
   pgTable,
   primaryKey,
   text,
+  timestamp,
   uuid,
 } from 'drizzle-orm/pg-core'
 
@@ -20,16 +20,16 @@ export const processed = pgTable(
     token: text().notNull(),
     recipient: text().notNull(),
     affiliate: text().notNull(),
-    intentAmount: bigint({ mode: 'bigint' }).notNull(),
-    recipientAmount: bigint({ mode: 'bigint' }).notNull(),
-    protocolAmount: bigint({ mode: 'bigint' }).notNull(),
-    affiliateAmount: bigint({ mode: 'bigint' }).notNull(),
+    intentAmount: text().notNull(),
+    recipientAmount: text().notNull(),
+    protocolAmount: text().notNull(),
+    affiliateAmount: text().notNull(),
     srcChainId: integer(),
     srcAddress: text(),
     status: integer().notNull(),
 
-    timestamp: bigint({ mode: 'bigint' }).notNull(),
-    blockNumber: bigint({ mode: 'bigint' }).notNull(),
+    timestamp: timestamp({ withTimezone: true }).notNull(),
+    blockNumber: text().notNull(),
     blockHash: text().notNull(),
   },
   (x) => [

@@ -1,8 +1,26 @@
 api.seedpay.app {
     encode gzip zstd
 
-    @allowed method GET OPTIONS
-    handle @allowed {
+    @txs {
+        path /txs*
+        method GET OPTIONS
+    }
+    handle @txs {
+        reverse_proxy api:8080
+    }
+
+    @watcher {
+        path /watcher*
+        method GET OPTIONS
+    }
+    handle @watcher {
+        reverse_proxy api:8080
+    }
+
+    @postgrest {
+        method GET OPTIONS
+    }
+    handle @postgrest {
         reverse_proxy postgrest:3000
     }
 
