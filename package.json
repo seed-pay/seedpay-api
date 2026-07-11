@@ -3,7 +3,7 @@
   "module": "index.ts",
   "type": "module",
   "scripts": {
-    "logs": "docker logs indexer | bunx pino-pretty",
+    "logs": "docker logs api | bunx pino-pretty",
     "migrate": "bunx drizzle-kit migrate",
     "start": "bun app/index.ts"
   },
