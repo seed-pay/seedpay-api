@@ -3,7 +3,7 @@ api.seedpay.app {
 
     @txs {
         path /txs*
-        method GET OPTIONS
+        method GET HEAD OPTIONS
     }
     handle @txs {
         reverse_proxy api:8080
@@ -11,14 +11,14 @@ api.seedpay.app {
 
     @watcher {
         path /watcher*
-        method GET OPTIONS
+        method GET HEAD OPTIONS
     }
     handle @watcher {
         reverse_proxy api:8080
     }
 
     @postgrest {
-        method GET OPTIONS
+        method GET HEAD OPTIONS
     }
     handle @postgrest {
         reverse_proxy postgrest:3000
