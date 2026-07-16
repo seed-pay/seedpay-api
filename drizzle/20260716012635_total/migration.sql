@@ -1,12 +1,12 @@
 -- Custom SQL migration file, put your code below! --
 CREATE VIEW total AS
 SELECT
-  chainId,
+  "chainId",
   token,
   recipient,
-  SUM(recipientAmount::numeric)::text AS total
+  SUM("recipientAmount"::numeric)::text AS total
 FROM processed
 GROUP BY
-  chain,
+  "chainId",
   token,
   recipient;
