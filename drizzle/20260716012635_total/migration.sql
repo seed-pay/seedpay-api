@@ -1,7 +1,7 @@
 -- Custom SQL migration file, put your code below! --
 CREATE VIEW total AS
 SELECT
-  chain,
+  chainId,
   token,
   recipient,
   SUM(recipientAmount::numeric)::text AS total
