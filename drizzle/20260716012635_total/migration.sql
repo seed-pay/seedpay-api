@@ -4,7 +4,7 @@ SELECT
   chain,
   token,
   recipient,
-  SUM(amount::numeric)::text AS total
+  SUM(recipientAmount::numeric)::text AS total
 FROM transactions
 GROUP BY
   chain,
